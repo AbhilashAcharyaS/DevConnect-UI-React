@@ -1,8 +1,11 @@
+import Navbar from "./Navbar"
+
 function App() {
 
   return (
     <>
-    <h1>Hello</h1>
+    <Navbar/>
+    <h1 className="text-6xl text-center">Hello</h1>
     </>
   )
 }
