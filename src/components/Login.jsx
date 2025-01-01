@@ -1,30 +1,40 @@
 import axios from "axios";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
+import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../utils/constants";
 
 function Login() {
 
     const [emailId,setEmailId] = useState("sowmya@gmail.com");
     const [password,setPassword] = useState("Sowmya@123");
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleLogin = async()=>{
       try {
-        const res= await axios.post("http://localhost:3000/login",{email:emailId,password})
-      //   const res= await fetch("http://localhost:3000/login",{
-    
-      //     // Adding method type
-      //     method: "POST",
-          
-      //     // Adding body or contents to send
-      //     body: JSON.stringify({
-      //         emailId: emailId,
-      //         password: password,
-      //     }),
-          
-      //     // Adding headers to the request
-      //     headers: {
-      //         "Content-type": "application/json; charset=UTF-8"
-      //     }
-      // })
+        const res= await axios.post(BASE_URL+"/login",{email:emailId,password},{withCredentials:true});
+        //   const res= await fetch("http://localhost:3000/login",{
+      
+        //     // Adding method type
+        //     method: "POST",
+            
+        //     // Adding body or contents to send
+        //     body: JSON.stringify({
+        //         emailId: emailId,
+        //         password: password,
+        //     }),
+            
+        //     // Adding headers to the request
+        //     headers: {
+        //         "Content-type": "application/json; charset=UTF-8"
+        //     }
+        // })
+
+        dispatch(addUser(res?.data));
+        navigate("/feed")
+        
       } catch (error) {
         console.log(error);
         
