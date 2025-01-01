@@ -9,6 +9,7 @@ function Login() {
 
     const [emailId,setEmailId] = useState("sowmya@gmail.com");
     const [password,setPassword] = useState("Sowmya@123");
+    const [error, setError] = useState("");
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -37,6 +38,7 @@ function Login() {
         
       } catch (error) {
         console.log(error);
+        setError(error?.response?.data || "Error logging in!")
         
       }
     }
@@ -76,7 +78,7 @@ function Login() {
             </svg>
             <input type="password" className="grow" placeholder="Password" value={password} onChange={(e)=>setPassword(e.target.value)} />
           </label>
-
+          <p className="text-red-600">{error}</p>
           <div className="card-actions justify-center mt-4">
             <button className="btn btn-primary" onClick={handleLogin} >Login</button>
           </div>
