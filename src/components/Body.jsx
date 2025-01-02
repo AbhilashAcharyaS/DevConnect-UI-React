@@ -33,7 +33,7 @@ function Body() {
   }, []);
 
   return (
-    <div>
+    <div className="flex flex-col justify-between">
       <Navbar />
       <Outlet />
       <Footer />

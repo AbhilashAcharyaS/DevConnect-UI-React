@@ -11,8 +11,9 @@ const UserCard = ({ user }) => {
         </figure>
         <div className="card-body">
           <h2 className="card-title">{firstName + " " + lastName}</h2>
-          {age && <span>{age}</span>}
-          {gender && <span>{", "+gender}</span>}
+          <div>
+          {age && <span>{age}</span>}{gender && <span>{", "+gender}</span>}
+          </div>
           <p>{about}</p>
           <p>{skills}</p>
           <div className="card-actions justify-center">
