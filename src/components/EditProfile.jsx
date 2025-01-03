@@ -17,6 +17,9 @@ const EditProfile = ({user}) => {
   const [error, setError] = useState("");
   const [showToast, setShowToast]= useState(false);
 
+  const [passowrdChange,setPasswordChange]=useState(false);
+  const [newPassword,setNewPassword]=useState("");
+
   const dispatch= useDispatch()
 
   const handleEdit= async ()=>{
@@ -30,6 +33,26 @@ const EditProfile = ({user}) => {
         window.scrollTo({top:0, behavior:"smooth"})
     } catch (error) {
         setError(error?.response?.data)
+    }
+  }
+
+  const showPasswordChange=()=>{
+    setPasswordChange(true);
+    setNewPassword("")
+  }
+
+  const handlePasswordChange = async()=>{
+    setError("")
+    try {
+      const res= await axios.patch(BASE_URL+"/profile/password",{password:newPassword},{withCredentials:true});
+      setShowToast(true);
+
+        setTimeout(()=>setShowToast(false), 3000)
+        window.scrollTo({top:0, behavior:"smooth"})
+        setPasswordChange(false)
+
+    } catch (error) {
+        setError(error?.response?.data)      
     }
   }
 
@@ -141,6 +164,26 @@ const EditProfile = ({user}) => {
           <div className="card-actions justify-center mt-4">
             <button className="btn btn-success text-white" onClick={handleEdit}>Save</button>
           </div>
+
+          <div className="card-actions justify-center mt-4">
+            <button className="btn btn-secondary text-white" onClick={showPasswordChange}>Change Password</button>
+          </div>
+
+          {passowrdChange && <label className="form-control w-full max-w-xs">
+            <div className="label">
+              <span className="label-text">New Password:</span>
+            </div>
+            <input
+              type="password"
+              value={newPassword}
+              onChange={(e) => {setNewPassword(e.target.value), setError("")}}
+              className="input input-bordered w-full max-w-xs"
+            />
+            <div>
+            <button className="btn btn-success text-white w-1/2 mx-auto my-4 flex justify-center items-center" onClick={handlePasswordChange}>Save New Password</button>
+
+            </div>
+          </label>}
         </div>
       </div>
     </div>

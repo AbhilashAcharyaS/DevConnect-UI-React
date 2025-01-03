@@ -14,7 +14,6 @@ const Requests = () => {
       const res = await axios.get(BASE_URL + "/user/requests/received", {
         withCredentials: true,
       });
-      console.log(res?.data?.data);
       dispatch(addRequests(res?.data?.data));
     } catch (error) {
       console.log(error);
@@ -24,7 +23,6 @@ const Requests = () => {
   const acceptRequest= async(_id)=>{
     try {
         const res=await axios.post(BASE_URL+"/request/review/accepted/"+_id,{},{withCredentials:true});
-        console.log(res);
         dispatch(removeOneRequest(_id))
         
     } catch (error) {
@@ -36,8 +34,7 @@ const Requests = () => {
   const rejectRequest= async(_id)=>{
     try {
         const res=await axios.post(BASE_URL+"/request/review/rejected/"+_id,{},{withCredentials:true});
-        console.log(res);
-        
+        dispatch(removeOneRequest(_id));        
     } catch (error) {
         console.log(error);     
     }
