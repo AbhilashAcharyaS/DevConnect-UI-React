@@ -29,7 +29,7 @@ const Feed = () => {
   return (
     feed && (
     <div>
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center min-h-[460px]">
         <UserCard user={feed[1]} />
         </div>
     </div>)

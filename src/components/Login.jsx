@@ -7,8 +7,8 @@ import { BASE_URL } from "../utils/constants";
 
 function Login() {
 
-    const [emailId,setEmailId] = useState("sowmya@gmail.com");
-    const [password,setPassword] = useState("Sowmya@123");
+    const [emailId,setEmailId] = useState("Abhijith@gmail.com");
+    const [password,setPassword] = useState("Abhijith@123");
     const [error, setError] = useState("");
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -44,7 +44,7 @@ function Login() {
     }
 
   return (
-    <div className="flex justify-center items-center my-20">
+    <div className="flex justify-center items-center my-16 min-h-[330px]">
       <div className="card bg-base-300 w-96 shadow-xl">
         <div className="card-body">
           <h2 className="card-title justify-center mb-4 text-2xl">Login</h2>

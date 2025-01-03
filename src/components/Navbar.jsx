@@ -5,6 +5,7 @@ import { BASE_URL } from "../utils/constants";
 import { removeUser } from "../utils/userSlice";
 import { removeConnection } from "../utils/connectionSlice";
 import { removeFeed } from "../utils/feedSlice";
+import { removeAllRequests } from "../utils/requestSlice";
 
 function Navbar() {
   const user = useSelector((store) => store.user);
@@ -18,6 +19,7 @@ function Navbar() {
       dispatch(removeUser());
       dispatch(removeConnection());
       dispatch(removeFeed());
+      dispatch(removeAllRequests())
     } catch (error) {
       console.log(error);
       
@@ -59,6 +61,9 @@ function Navbar() {
             </li>
             <li>
               <Link to="/connections">Connections</Link>
+            </li>
+            <li>
+              <Link to="/requests">Requests</Link>
             </li>
             <li>
               <button onClick={handleLogout}>Logout</button>

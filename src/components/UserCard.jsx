@@ -5,9 +5,9 @@ const UserCard = ({ user }) => {
 
   return (
     <div>
-      <div className="card bg-base-300 w-96 shadow-xl mt-2">
+      <div className="card bg-base-300 w-96 shadow-xl m-2 border border-slate-600">
         <figure>
-          <img src={photoUrl} alt="user photo" className="w-full h-full" />
+          <img src={photoUrl} alt="user photo" className="w-40 h-40" />
         </figure>
         <div className="card-body">
           {lastName && (
