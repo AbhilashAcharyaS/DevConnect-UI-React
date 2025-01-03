@@ -4,15 +4,19 @@ const UserCard = ({ user }) => {
   const { firstName, lastName, photoUrl, about, skills, age, gender } = user;
 
   return (
-    <div >
+    <div>
       <div className="card bg-base-300 w-96 shadow-xl mt-2">
         <figure>
-          <img src={photoUrl} alt="user photo" className="rounded-full" />
+          <img src={photoUrl} alt="user photo" className="w-full h-full" />
         </figure>
         <div className="card-body">
-          <h2 className="card-title">{firstName + " " + lastName}</h2>
+          {lastName && (
+            <h2 className="card-title">{firstName + " " + lastName}</h2>
+          )}
+          {!lastName && <h2 className="card-title">{firstName}</h2>}
           <div>
-          {age && <span>{age}</span>}{gender && <span>{", "+gender}</span>}
+            {age && <span className="inline">{age}</span>}
+            {gender && <span className="inline">{", " + gender}</span>}
           </div>
           <p>{about}</p>
           <p>{skills}</p>

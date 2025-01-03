@@ -20,9 +20,11 @@ const Feed = () => {
   }
 
   useEffect(()=>{
-    if(feed) return;
+    // if(feed) return;
     getFeed()
   }, [])
+
+  if(feed?.length===0) return (<div><h2 className='text-center text-2xl my-10 min-h-[380px]'>Nothing to show!</h2></div>)
 
   return (
     feed && (
