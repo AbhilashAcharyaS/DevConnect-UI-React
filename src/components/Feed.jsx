@@ -20,17 +20,17 @@ const Feed = () => {
   }
 
   useEffect(()=>{
-    // if(feed) return;
+    if(feed) return;
     getFeed()
   }, [])
 
-  if(feed?.length===0) return (<div><h2 className='text-center text-2xl my-10 min-h-[380px]'>Nothing to show!</h2></div>)
+  if(feed===null || feed?.length===0) return (<div><h2 className='text-center text-2xl my-10 min-h-[380px]'>Nothing to show!</h2></div>)
 
   return (
     feed && (
     <div>
         <div className="flex justify-center items-center min-h-[460px]">
-        <UserCard user={feed[1]} />
+        <UserCard user={feed[0]} />
         </div>
     </div>)
   )
