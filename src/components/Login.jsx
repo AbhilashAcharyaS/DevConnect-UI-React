@@ -6,10 +6,12 @@ import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
 
 function Login() {
-
-    const [emailId,setEmailId] = useState("Abhijith@gmail.com");
-    const [password,setPassword] = useState("Abhijith@123");
+    const [firstName,setFirstName]=useState("");
+    const [lastName,setLastName]=useState("")
+    const [emailId,setEmailId] = useState("");
+    const [password,setPassword] = useState("");
     const [error, setError] = useState("");
+    const [isLoginForm, setIsLoginForm]=useState(true)
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -43,13 +45,46 @@ function Login() {
       }
     }
 
+    const handleSignUp=async()=>{
+      try {
+        const res=await axios.post(BASE_URL+"/signup",{firstName,lastName,email:emailId,password},{withCredentials:true});
+        dispatch(addUser(res?.data));
+        navigate("/profile")
+      } catch (error) {
+        setError(error?.response?.data || "Error Signing Up!")
+      }
+    }
+
   return (
     <div className="flex justify-center items-center my-16 min-h-[330px]">
       <div className="card bg-base-300 w-96 shadow-xl">
         <div className="card-body">
-          <h2 className="card-title justify-center mb-4 text-2xl">Login</h2>
+          <h2 className="card-title justify-center mb-4 text-2xl">{isLoginForm?"Login":"SignUp"}</h2>
 
-          
+          {!isLoginForm && <><label className="input input-bordered flex items-center gap-2">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 16 16"
+    fill="currentColor"
+    className="h-4 w-4 opacity-70">
+    <path
+      d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
+  </svg>
+  <input type="text" className="grow" placeholder="First name" value={firstName} onChange={(e)=>{setFirstName(e.target.value)}} />
+</label>
+
+<label className="input input-bordered flex items-center gap-2">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 16 16"
+    fill="currentColor"
+    className="h-4 w-4 opacity-70">
+    <path
+      d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
+  </svg>
+  <input type="text" className="grow" placeholder="Last Name" value={lastName} onChange={(e)=>setLastName(e.target.value)} />
+</label></>}
+
           <label className="input input-bordered flex items-center gap-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -80,7 +115,10 @@ function Login() {
           </label>
           <p className="text-red-600">{error}</p>
           <div className="card-actions justify-center mt-4">
-            <button className="btn btn-primary" onClick={handleLogin} >Login</button>
+            <button className="btn btn-primary" onClick={isLoginForm?handleLogin:handleSignUp} >{isLoginForm?"Login":"SignUp"}</button>
+          </div>
+          <div className="mx-auto">
+            <p className="py-2 hover:underline cursor-pointer" onClick={()=>{setIsLoginForm(!isLoginForm),setError("")}}>{isLoginForm?"New User? SignUp":"Already have Account? Login"}</p>
           </div>
         </div>
       </div>
