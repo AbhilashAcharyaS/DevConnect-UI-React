@@ -40,7 +40,7 @@ const Chat = () => {
     const socket = createSocketConnection();
     socket.emit("joinChat",{firstName:user?.firstName, userId,targetUserId});
     socket.on("messageRecieved",({firstName,lastName,text})=>{
-      console.log(firstName+" :"+ text);
+      // console.log(firstName+" :"+ text);
       setMessages((messages)=>[...messages,{firstName,lastName,text}])
     })
     return ()=>{

@@ -6,84 +6,110 @@ import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
 
 function Login() {
-    const [firstName,setFirstName]=useState("");
-    const [lastName,setLastName]=useState("")
-    const [emailId,setEmailId] = useState("");
-    const [password,setPassword] = useState("");
-    const [error, setError] = useState("");
-    const [isLoginForm, setIsLoginForm]=useState(true)
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [emailId, setEmailId] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [isLoginForm, setIsLoginForm] = useState(true);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    const handleLogin = async()=>{
-      try {
-        const res= await axios.post(BASE_URL+"/login",{email:emailId,password},{withCredentials:true});
-        //   const res= await fetch("http://localhost:3000/login",{
-      
-        //     // Adding method type
-        //     method: "POST",
-            
-        //     // Adding body or contents to send
-        //     body: JSON.stringify({
-        //         emailId: emailId,
-        //         password: password,
-        //     }),
-            
-        //     // Adding headers to the request
-        //     headers: {
-        //         "Content-type": "application/json; charset=UTF-8"
-        //     }
-        // })
+  const handleLogin = async () => {
+    try {
+      const res = await axios.post(
+        BASE_URL + "/login",
+        { email: emailId, password },
+        { withCredentials: true }
+      );
+      //   const res= await fetch("http://localhost:3000/login",{
 
-        dispatch(addUser(res?.data));
-        navigate("/feed")
-        
-      } catch (error) {
-        console.log(error);
-        setError(error?.response?.data || "Error logging in!")
-        
-      }
+      //     // Adding method type
+      //     method: "POST",
+
+      //     // Adding body or contents to send
+      //     body: JSON.stringify({
+      //         emailId: emailId,
+      //         password: password,
+      //     }),
+
+      //     // Adding headers to the request
+      //     headers: {
+      //         "Content-type": "application/json; charset=UTF-8"
+      //     }
+      // })
+
+      dispatch(addUser(res?.data));
+      navigate("/feed");
+    } catch (error) {
+      console.log(error);
+      setError(error?.response?.data || "Error logging in!");
     }
+  };
 
-    const handleSignUp=async()=>{
-      try {
-        const res=await axios.post(BASE_URL+"/signup",{firstName,lastName,email:emailId,password},{withCredentials:true});
-        dispatch(addUser(res?.data));
-        navigate("/profile")
-      } catch (error) {
-        setError(error?.response?.data || "Error Signing Up!")
-      }
+  const handleSignUp = async () => {
+    try {
+      const res = await axios.post(
+        BASE_URL + "/signup",
+        { firstName, lastName, email: emailId, password },
+        { withCredentials: true }
+      );
+      dispatch(addUser(res?.data));
+      navigate("/profile");
+    } catch (error) {
+      setError(error?.response?.data || "Error Signing Up!");
     }
+  };
 
   return (
-    <div className="flex justify-center items-center my-16 min-h-[330px]">
+    <div className="flex justify-center items-center my-16 w-full">
       <div className="card bg-base-300 w-96 shadow-xl">
         <div className="card-body">
-          <h2 className="card-title justify-center mb-4 text-2xl">{isLoginForm?"Login":"SignUp"}</h2>
+          <h2 className="card-title justify-center mb-4 text-2xl">
+            {isLoginForm ? "Login" : "SignUp"}
+          </h2>
 
-          {!isLoginForm && <><label className="input input-bordered flex items-center gap-2">
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 16 16"
-    fill="currentColor"
-    className="h-4 w-4 opacity-70">
-    <path
-      d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
-  </svg>
-  <input type="text" className="grow" placeholder="First name" value={firstName} onChange={(e)=>{setFirstName(e.target.value)}} />
-</label>
+          {!isLoginForm && (
+            <>
+              <label className="input input-bordered flex items-center gap-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 16 16"
+                  fill="currentColor"
+                  className="h-4 w-4 opacity-70"
+                >
+                  <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
+                </svg>
+                <input
+                  type="text"
+                  className="grow"
+                  placeholder="First name"
+                  value={firstName}
+                  onChange={(e) => {
+                    setFirstName(e.target.value);
+                  }}
+                />
+              </label>
 
-<label className="input input-bordered flex items-center gap-2">
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 16 16"
-    fill="currentColor"
-    className="h-4 w-4 opacity-70">
-    <path
-      d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
-  </svg>
-  <input type="text" className="grow" placeholder="Last Name" value={lastName} onChange={(e)=>setLastName(e.target.value)} />
-</label></>}
+              <label className="input input-bordered flex items-center gap-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 16 16"
+                  fill="currentColor"
+                  className="h-4 w-4 opacity-70"
+                >
+                  <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
+                </svg>
+                <input
+                  type="text"
+                  className="grow"
+                  placeholder="Last Name"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                />
+              </label>
+            </>
+          )}
 
           <label className="input input-bordered flex items-center gap-2">
             <svg
@@ -95,9 +121,15 @@ function Login() {
               <path d="M2.5 3A1.5 1.5 0 0 0 1 4.5v.793c.026.009.051.02.076.032L7.674 8.51c.206.1.446.1.652 0l6.598-3.185A.755.755 0 0 1 15 5.293V4.5A1.5 1.5 0 0 0 13.5 3h-11Z" />
               <path d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z" />
             </svg>
-            <input type="text" className="grow" placeholder="Email" value={emailId} onChange={(e)=>setEmailId(e.target.value)}/>
+            <input
+              type="text"
+              className="grow"
+              placeholder="Email"
+              value={emailId}
+              onChange={(e) => setEmailId(e.target.value)}
+            />
           </label>
-          
+
           <label className="input input-bordered flex items-center gap-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -111,14 +143,32 @@ function Login() {
                 clipRule="evenodd"
               />
             </svg>
-            <input type="password" className="grow" placeholder="Password" value={password} onChange={(e)=>setPassword(e.target.value)} />
+            <input
+              type="password"
+              className="grow"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </label>
           <p className="text-red-600">{error}</p>
           <div className="card-actions justify-center mt-4">
-            <button className="btn btn-primary" onClick={isLoginForm?handleLogin:handleSignUp} >{isLoginForm?"Login":"SignUp"}</button>
+            <button
+              className="btn btn-primary"
+              onClick={isLoginForm ? handleLogin : handleSignUp}
+            >
+              {isLoginForm ? "Login" : "SignUp"}
+            </button>
           </div>
           <div className="mx-auto">
-            <p className="py-2 hover:underline cursor-pointer" onClick={()=>{setIsLoginForm(!isLoginForm),setError("")}}>{isLoginForm?"New User? SignUp":"Already have Account? Login"}</p>
+            <p
+              className="py-2 hover:underline cursor-pointer"
+              onClick={() => {
+                setIsLoginForm(!isLoginForm), setError("");
+              }}
+            >
+              {isLoginForm ? "New User? SignUp" : "Already have Account? Login"}
+            </p>
           </div>
         </div>
       </div>
