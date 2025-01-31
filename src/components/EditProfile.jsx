@@ -62,6 +62,8 @@ const EditProfile = ({ user }) => {
     }
   };
 
+  // const [image,setImage]=useState(null);
+
   return (
     <>
       {showToast && (
@@ -71,32 +73,32 @@ const EditProfile = ({ user }) => {
           </div>
         </div>
       )}
-      <div className="flex justify-center my-10">
-        
-      <div>
-      <div className="card bg-base-300 w-96 shadow-xl m-2 border border-slate-600">
-        <figure>
-          <img src={photoUrl} alt="user photo" className="w-40 h-40" />
-        </figure>
-        <div className="card-body">
-          {lastName && (
-            <h2 className="card-title">{firstName + " " + lastName}</h2>
-          )}
-          {!lastName && <h2 className="card-title">{firstName}</h2>}
-          <div>
-            {age && <span className="inline">{age}</span>}
-            {gender && <span className="inline">{", " + gender}</span>}
+      <div className="flex flex-col md:flex-row justify-center my-10">
+        <div className="mb-4">
+          <div className="card bg-base-300 w-72 md:w-96 mx-auto shadow-xl m-2 border border-slate-600">
+            <figure className="bg-base-200">
+              <img src={photoUrl} alt="user photo" className="w-40 h-60 object-contain my-2" />
+              {/* <img src={URL.createObjectURL(image)} alt="not-found" /> */}
+
+            </figure>
+            <div className="card-body">
+              {lastName && (
+                <h2 className="card-title">{firstName + " " + lastName}</h2>
+              )}
+              {!lastName && <h2 className="card-title">{firstName}</h2>}
+              <div>
+                {age && <span className="inline">{age}</span>}
+                {gender && <span className="inline">{", " + gender}</span>}
+              </div>
+              <p>{about}</p>
+              <p>{skills}</p>
+            </div>
           </div>
-          <p>{about}</p>
-          <p>{skills}</p>
-          
         </div>
-      </div>
-    </div>
 
         <div className="flex justify-center items-center mx-10">
           <div className="card bg-base-300 w-96 shadow-xl">
-            <div className="card-body">
+            <div className="card-body ">
               <h2 className="card-title justify-center mb-4 text-2xl">
                 Edit Profile
               </h2>
@@ -164,6 +166,16 @@ const EditProfile = ({ user }) => {
                   className="input input-bordered w-full max-w-xs"
                 />
               </label>
+
+{/* <input
+        type="file"
+        name="myImage"
+        // Event handler to capture file selection and update the state
+        onChange={(event) => {
+          console.log(event.target.files[0]); // Log the selected file
+          setImage(event.target.files[0]); // Update the state with the selected file
+        }}
+      /> */}
 
               <label className="form-control w-full max-w-xs">
                 <div className="label">

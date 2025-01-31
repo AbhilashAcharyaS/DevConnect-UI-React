@@ -62,8 +62,8 @@ function Login() {
   };
 
   return (
-    <div className="flex justify-center items-center my-16 w-full">
-      <div className="card bg-base-300 w-96 shadow-xl">
+    <div className="flex justify-center items-center my-16 w-full min-h-[55vh]">
+      <div className="card bg-base-300 w-80 md:w-96 shadow-xl">
         <div className="card-body">
           <h2 className="card-title justify-center mb-4 text-2xl">
             {isLoginForm ? "Login" : "SignUp"}

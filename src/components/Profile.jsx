@@ -4,7 +4,7 @@ import EditProfile from "./EditProfile"
 function Profile() {
   const user=useSelector(store=>store.user)
   return (
-    <div>
+    <div className="min-h-screen">
 
       {user && <EditProfile user={user}/>}
     </div>
