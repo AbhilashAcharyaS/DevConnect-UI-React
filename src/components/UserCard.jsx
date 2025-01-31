@@ -19,9 +19,9 @@ const UserCard = ({ user }) => {
 
   return (
     <div>
-      <div className="card bg-base-300 w-96 shadow-xl m-2 border border-slate-600">
+      <div className="card bg-base-300 w-76 md:w-96 shadow-xl my-8 border border-slate-600">
         <figure>
-          <img src={photoUrl} alt="user photo" className="w-40 h-40" />
+          <img src={photoUrl} alt="user photo" className="w-40 h-60 object-contain my-2" />
         </figure>
         <div className="card-body">
           {lastName && (

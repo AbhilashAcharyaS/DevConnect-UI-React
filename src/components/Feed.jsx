@@ -24,7 +24,7 @@ const Feed = () => {
     getFeed()
   }, [])
 
-  if(feed===null || feed?.length===0) return (<div><h2 className='text-center text-2xl my-10 min-h-[380px]'>Nothing to show!</h2></div>)
+  if(feed===null || feed?.length===0) return (<div><h2 className='text-center text-2xl py-20 min-h-[60vh] md:min-h-[77vh] '>No new Users! <br /> Come back later 🙂</h2></div>)
 
   return (
     feed && (
