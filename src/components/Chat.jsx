@@ -90,7 +90,7 @@ const Chat = () => {
   };
 
   return (
-    <div className="w-3/4 mx-auto border border-gray-600 m-5 h-[70vh] flex flex-col rounded-xl bg-base-300">
+    <div className="w-11/12 md:w-1/2 mx-auto border border-gray-600 m-5 h-[71vh] flex flex-col rounded-xl bg-base-300">
       <div className="flex justify-center border-b">
         <div className="btn btn-ghost btn-circle avatar my-2">
           <img
@@ -119,8 +119,8 @@ const Chat = () => {
               }
             >
               <div className="chat-header">
-                {msg.firstName}
-                <time className="text-xs opacity-50">{msg.time}</time>
+                {msg?.firstName}
+                <time className="text-xs opacity-50 ml-1">{msg?.time?.toString().slice(0,10)} / {msg.time.toString().slice(11,16)} GMT</time>
               </div>
               <div className="chat-bubble">{msg.text}</div>
               {/* <div className="chat-footer opacity-50">Seen</div> */}
@@ -128,7 +128,7 @@ const Chat = () => {
           );
         })}
       </div>
-      <div className="p-5 border-t border-gray-600 flex items-center gap-2">
+      <div className="p-2 md:p-5 border-t border-gray-600 flex items-center gap-2">
         <input
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}

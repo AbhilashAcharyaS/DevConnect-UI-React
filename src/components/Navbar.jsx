@@ -27,14 +27,14 @@ function Navbar() {
   }
 
   return (
-    <div className="navbar bg-base-300 w-full">
+    <div className="navbar bg-base-300 w-full md:px-8">
       <div className="flex-1">
         <Link to="/" className="btn btn-ghost text-xl">DevConnect</Link>
       </div>
       {user && 
        
       <div className="flex-none gap-2">
-        <div className="text-sm md:text-base">Welcome, {user?.firstName}</div>
+        <div className="text-sm md:text-base"> <span className="hidden md:inline">Welcome,</span> {user?.firstName}</div>
         <div className="dropdown dropdown-end">
           <div
             tabIndex={0}
