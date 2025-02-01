@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { createSocketConnection } from "../utils/socket";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
+import { addConnections } from "../utils/connectionSlice";
 
 const Chat = () => {
   const { targetUserId } = useParams();
@@ -11,6 +12,7 @@ const Chat = () => {
   const [newMessage, setNewMessage] = useState("");
   const user = useSelector((store) => store.user);
   const userId = user?._id;
+  const dispatch= useDispatch()
 
   // const chatBodyRef = useRef(null);
 
@@ -23,13 +25,29 @@ const Chat = () => {
 
   const getTargetUser = () => {
     const tUser = connections?.filter((x) => x._id === targetUserId);
-    setTargetUser(tUser[0]);
+    setTargetUser(tUser);
     // console.log(tUser);
     // console.log(targetUser[0]?.firstName);
   };
 
   useEffect(() => {
     getTargetUser();
+  }, []);
+
+
+  const fetchConnections = async () => {
+    try {
+      const res = await axios.get(BASE_URL + "/user/connections", {
+        withCredentials: true,
+      });
+      dispatch(addConnections(res?.data?.data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchConnections();
   }, []);
 
   const fetchChatMessages = async () => {
@@ -41,7 +59,7 @@ const Chat = () => {
       return {
         firstName: msg?.senderId?.firstName,
         lastName: msg?.senderId?.lastName,
-        text: msg.text,
+        text: msg?.text,
         time: msg?.updatedAt,
       };
     });
@@ -96,14 +114,14 @@ const Chat = () => {
           <img
             alt="User Photo"
             // src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-            src={targetUser?.photoUrl}
+            src={targetUser[0]?.photoUrl}
             className="rounded-full y-4"
           />
         </div>
         
         <div>
           <h1 className="p-5 border-gray-600 text-center text-xl">
-            {targetUser?.firstName} {" " + targetUser?.lastName}{" "}
+            {targetUser[0]?.firstName} {" " + targetUser[0]?.lastName}{" "}
           </h1>
         </div>
         
@@ -115,14 +133,14 @@ const Chat = () => {
               key={index}
               className={
                 "chat " +
-                (user.firstName === msg.firstName ? "chat-end" : "chat-start")
+                (user?.firstName === msg?.firstName ? "chat-end" : "chat-start")
               }
             >
               <div className="chat-header">
                 {msg?.firstName}
-                <time className="text-xs opacity-50 ml-1">{msg?.time?.toString().slice(0,10)} / {msg.time.toString().slice(11,16)} GMT</time>
+                <time className="text-xs opacity-50 ml-1">{msg?.time?.toString().slice(0,10)} / {msg?.time?.toString().slice(11,16)} GMT</time>
               </div>
-              <div className="chat-bubble">{msg.text}</div>
+              <div className="chat-bubble">{msg?.text}</div>
               {/* <div className="chat-footer opacity-50">Seen</div> */}
             </div>
           );
