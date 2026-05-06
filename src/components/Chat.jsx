@@ -120,15 +120,15 @@ const Chat = () => {
     });
 
     // Optimistic UI update
-    setMessages((prev) => [
-      ...prev,
-      {
-        firstName: user?.firstName,
-        lastName: user?.lastName,
-        text: newMessage,
-        time: new Date(),
-      },
-    ]);
+    // setMessages((prev) => [
+    //   ...prev,
+    //   {
+    //     firstName: user?.firstName,
+    //     lastName: user?.lastName,
+    //     text: newMessage,
+    //     time: new Date(),
+    //   },
+    // ]);
 
     setNewMessage("");
   };
@@ -172,7 +172,7 @@ const Chat = () => {
                 {msg?.firstName}
                 <span className="ml-2 text-xs opacity-50">
                   {msg?.time
-                    ? new Date(msg.time).toLocaleTimeString()
+                    ? new Date(msg.time).toLocaleDateString() +" at "+ new Date(msg.time).toLocaleTimeString()
                     : ""}
                 </span>
               </div>
